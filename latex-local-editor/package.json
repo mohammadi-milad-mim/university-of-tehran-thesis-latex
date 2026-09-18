@@ -1,0 +1,51 @@
+{
+  "name": "latex-local-editor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local Persian RTL visual and source editor for the native LaTeX thesis",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "start": "node scripts/start.mjs",
+    "server": "node server/index.mjs",
+    "client": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "check": "npm run test && npm run typecheck && npm run build",
+    "dev": "node scripts/dev.mjs",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "6.20.3",
+    "@codemirror/commands": "6.11.0",
+    "@codemirror/language": "6.12.4",
+    "@codemirror/legacy-modes": "6.5.3",
+    "@codemirror/merge": "6.12.2",
+    "@codemirror/search": "6.7.1",
+    "@codemirror/state": "6.7.1",
+    "@codemirror/view": "6.43.9",
+    "@lezer/highlight": "1.2.3",
+    "chokidar": "4.0.3",
+    "codemirror": "6.0.2",
+    "express": "4.22.3",
+    "lucide-react": "0.468.0",
+    "pdfjs-dist": "4.10.38",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "ws": "8.21.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "@types/express": "5.0.6",
+    "@types/react": "18.3.31",
+    "@types/react-dom": "18.3.7",
+    "@types/ws": "8.18.1",
+    "@vitejs/plugin-react": "4.7.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.3"
+  },
+  "license": "MIT"
+}

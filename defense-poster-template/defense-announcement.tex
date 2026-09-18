@@ -1,0 +1,29 @@
+% Build from thesis-latex with `make poster` to share all paths and metadata.
+\documentclass{ut-thesis}
+\input{metadata}
+\input{../defense-poster-template/details}
+\begin{document}
+\pagestyle{empty}
+\begin{center}
+\includegraphics[width=22mm]{eng-logo.png}\hfill
+\includegraphics[width=22mm]{logo.png}\par
+\vspace{6mm}
+{\Large\bfseries \ThesisMetadata{universityfa}\par
+\ThesisMetadata{facultyfa}\par}
+\vspace{8mm}
+{\LARGE\bfseries آگهی جلسه دفاع از پایان‌نامه\par}
+\vspace{8mm}
+{\Large\bfseries \ThesisMetadata{titlefa}\par}
+\end{center}
+\bigskip
+\noindent نگارنده: \ThesisMetadata{authorfa}\par
+\noindent استاد راهنما: \ThesisMetadata{supervisorfa}\par
+\noindent استادان مشاور: \thesisadvisoronefa\quad\thesisadvisortwofa\par
+\noindent زمان دفاع: \DefenseDate\quad\DefenseTime\par
+\noindent مکان دفاع: \DefensePlace\par
+\bigskip
+{\large\bfseries چکیده}\par
+\input{front-matter/abstract-fa}
+\par\medskip
+\noindent\textbf{واژگان کلیدی:} \ThesisMetadata{keywordsfa}
+\end{document}

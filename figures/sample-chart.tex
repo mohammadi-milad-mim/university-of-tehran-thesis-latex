@@ -1,0 +1,9 @@
+\input{../experiment_results/sample-data.tex}
+\begin{tikzpicture}
+\draw[->] (0,0)--(7,0);\draw[->] (0,0)--(0,5);
+\fill[teal!65] (1,0) rectangle (2,\SampleA);
+\fill[teal!65] (3,0) rectangle (4,\SampleB);
+\fill[teal!65] (5,0) rectangle (6,\SampleC);
+\node at (1.5,-.4) {\lr{A}};\node at (3.5,-.4) {\lr{B}};\node at (5.5,-.4) {\lr{C}};
+\foreach \y in {1,2,3,4} {\draw (-.1,\y)--(.1,\y);\node[left] at (0,\y) {\lr{\y}};}
+\end{tikzpicture}

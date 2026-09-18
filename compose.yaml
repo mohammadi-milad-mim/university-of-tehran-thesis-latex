@@ -1,0 +1,22 @@
+services:
+  editor:
+    build: .
+    image: ut-thesis-kit:local
+    init: false
+    ports:
+      - "127.0.0.1:${EDITOR_PORT:-5185}:5185"
+    environment:
+      THESIS_LATEX_EDITOR_ALLOWED_HOSTS: "127.0.0.1:5185,localhost:5185,127.0.0.1:${EDITOR_PORT:-5185},localhost:${EDITOR_PORT:-5185}"
+      THESIS_LATEX_EDITOR_POLLING: "1"
+    volumes:
+      - ./thesis-latex:/workspace/thesis-latex
+      - ./figures:/workspace/figures:ro
+      - ./experiment_results:/workspace/experiment_results:ro
+      - ./defense-poster-template:/workspace/defense-poster-template
+      - editor-cache:/cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  editor-cache:

@@ -1,0 +1,9 @@
+$pdf_mode = 5;
+$out_dir = '.build';
+$aux_dir = '.build';
+$max_repeat = 8;
+$recorder = 1;
+system('python3 tools/prepare_terms.py') == 0 or die "Cannot prepare terminology registry";
+$xelatex = 'xelatex -synctex=1 -no-shell-escape -interaction=nonstopmode -halt-on-error -file-line-error %O %S';
+$xdvipdfmx = 'xdvipdfmx -V 7 %O -o %D %S';
+$biber = 'biber %O %B';

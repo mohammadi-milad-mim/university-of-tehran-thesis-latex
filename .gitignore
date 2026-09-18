@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.cache/
+.build/
+output/
+__pycache__/
+.DS_Store
+*.synctex.gz
+*.log
+.env
+playwright-report/
+test-results/
+compose.override.yaml

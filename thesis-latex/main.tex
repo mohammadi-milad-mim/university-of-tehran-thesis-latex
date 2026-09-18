@@ -1,0 +1,89 @@
+\documentclass{ut-thesis}
+
+\input{metadata}
+\addbibresource{bibliography/references.bib}
+\input{glossary/terms}
+
+\begin{document}
+
+% Preliminary pages: deliberately no automatic blank versos.
+\pagestyle{empty}
+\pagenumbering{gobble}
+\ThesisPersianCoverPage
+\ifThesisIncludeBesm\ThesisBesmPage\fi
+\ThesisPersianTitlePage
+\ifThesisIncludeDefense\ThesisDefenseCertificatePage\fi
+\ifThesisIncludeOriginality\ThesisOriginalityPage\fi
+\ifThesisIncludeAIReport
+  \ThesisContentPage{گزارش استفاده از هوش‌مصنوعی}{front-matter/ai-use-disclosure.tex}
+\fi
+\ifThesisIncludeDedication
+  \input{front-matter/dedication.tex}
+\fi
+\ifThesisIncludeAcknowledgements
+  \input{front-matter/acknowledgements.tex}
+\fi
+\ThesisPersianAbstractPage
+
+% Persian alphabetic folios for the preliminary lists.
+\clearpage
+\thesisstartlistpages
+\pagestyle{thesisfront}
+\tableofcontents
+\input{glossary/preliminary-acronyms}
+\printnoidxglossary[type=\acronymtype,title={فهرست علائم، نشانه‌ها و مخفف‌ها},style=thesisacronyms]
+\ifThesisIncludeTables
+  \ThesisListOfTables
+\fi
+\ifThesisIncludeFigures
+  \ThesisListOfFigures
+\fi
+
+% Main body.
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{thesismain}
+\input{chapters/01-introduction}
+\input{chapters/02-literature-review}
+\input{chapters/03-methodology}
+\input{chapters/04-implementation}
+\input{chapters/05-results}
+\input{chapters/06-discussion-conclusion}
+
+\clearpage
+\phantomsection
+\chapter*{منابع و مآخذ}
+\addcontentsline{toc}{chapter}{منابع و مآخذ}
+\begin{latin}\thesislatinfont\fontsize{10.5pt}{12pt}\selectfont
+\renewcommand*{\bibfont}{\thesislatinfont\fontsize{10.5pt}{12pt}\selectfont}
+\DeclareFieldFormat{labelnumberwidth}{%
+  {\fontsize{9.5pt}{12pt}\selectfont[}#1{\fontsize{9.5pt}{12pt}\selectfont]}}
+\setlength{\bibitemsep}{3pt}
+\setlength{\bibparsep}{0pt}
+\setlength{\biblabelsep}{0.6em}
+\printbibliography[heading=none]
+\end{latin}
+
+% Appendices keep the main Arabic folio sequence but use Persian letters.
+\clearpage
+\appendix
+% Only appendix titles appear in the main contents.
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\renewcommand{\thechapter}{\thesisappendixletter{\value{chapter}}}
+\renewcommand{\thesischapterprefix}{پیوست}
+\input{appendices/A-examples}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+
+% Persian semantic entries remain active for \gls first-use forms, while only
+% the used English-to-Persian registry is printed at the end.
+\clearpage
+\printnoidxglossary[type=enfa,title={واژه‌نامه انگلیسی به فارسی},style=thesisenfa,sort=standard]
+
+\ifThesisIncludeEnglishPages
+  \clearpage
+  \pagestyle{empty}\pagenumbering{gobble}
+  \ThesisEnglishAbstractPage
+  \ThesisEnglishTitlePage
+\fi
+
+\end{document}

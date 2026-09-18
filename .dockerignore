@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.cache
+**/.build
+**/output
+**/.DS_Store
+.git
+.env
+**/test-results
+**/playwright-report
+docs/previews
+
+sample-output

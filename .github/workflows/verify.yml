@@ -1,0 +1,51 @@
+name: Verify kit
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  editor:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.22.0'
+          cache: npm
+          cache-dependency-path: latex-local-editor/package-lock.json
+      - run: npm ci && npm run check
+        working-directory: latex-local-editor
+      - run: npx playwright install --with-deps chromium firefox webkit
+        working-directory: latex-local-editor
+      - run: npx playwright test --grep-invert 'real PDF preview'
+        working-directory: latex-local-editor
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failures
+          path: latex-local-editor/test-results
+  container:
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
+      - run: sudo chown -R 1000:1000 thesis-latex defense-poster-template
+      - run: docker compose up -d --wait
+      - run: docker compose exec -w /workspace/thesis-latex editor make verify poster
+      - run: node scripts/smoke.mjs
+      - run: docker compose restart editor && docker compose up -d --wait
+      - run: curl --fail http://127.0.0.1:5185/api/index > /dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sample-pdfs-${{ matrix.arch }}
+          path: |
+            thesis-latex/output/*.pdf
+            defense-poster-template/output/*.pdf
+      - run: docker compose down -v
+        if: always()
